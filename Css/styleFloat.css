@@ -1,0 +1,62 @@
+
+/****************RESET*****************/
+body {
+  box-sizing: border-box;
+}
+
+main {
+  width: 90%;
+}
+
+
+/******************COMPONENTS***************/
+
+.content-Float {
+  width: 44%;
+  height: 80vh;
+  display: inline-block;
+}
+
+
+
+/******************UTILITIES***************/
+
+.center-box {
+  margin: auto;
+}
+
+
+
+/******************SITE STYLES***************/
+.logo {
+  width: 10%;
+  height: 80vh;
+  background-color: aqua;
+  display: inline-block;
+}
+
+.entrada{
+  background-color: red;
+}
+
+.salida{
+  background-color: blue;
+}
+
+
+
+/*****************QUERY*****************/
+@media screen and (max-width:60em) {
+  .logo {
+    width: 9%;
+  }
+
+  .content-Float{
+    width: 90%;
+  }
+
+  .salida {
+    width: 100%;
+  }
+
+}
