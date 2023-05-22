@@ -133,8 +133,13 @@ p{
   margin-top: 1rem;
   height: 70vh;
 
-  font-size: var(--h1-font-size);
-  color: rgb(0,0,103);
+  font-size: var(--h2-font-size);
+  color: rgb(142, 142, 145);
+}
+
+.salida textarea::selection {
+  /* RESETEO DE SELECCION */
+  background-color: transparent;
 }
 
 .entrada textarea::placeholder {
@@ -175,6 +180,10 @@ p{
   background-color: rgb(10,56,113);
 }
 
+.encriptar:hover {
+  background-color: rgb(27, 91, 168);
+}
+
 .desencriptar {
   color: rgb(10,56,113);
 }
@@ -183,11 +192,9 @@ p{
 .copiar {
   width: 86%;
   text-align: center;
+  display: none;
 }
 
-/*
-***ACTION JAVASCRIPT***
-*/
 
 
 /*****************QUERY*****************/
@@ -284,5 +291,24 @@ p{
     margin-left: 5.5vw;
   }
 
+}
+
+
+/*****************ACTION SCRIPT*****************/
+
+.outputOpacity {
+  display: none;
+}
+
+
+.revelationOpacity {
+  width: 86%;
+  text-align: center;
+  display: static;
+}
+
+.revelationOpacity:hover{
+  color: white;
+  background-color: rgb(27, 91, 168);
 }
 
