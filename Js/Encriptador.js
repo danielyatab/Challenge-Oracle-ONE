@@ -15,7 +15,6 @@ let encrDesn = true;
 
 const codificar = (text) => {
   const textCod = text.toLowerCase().split("").map((word) => {
-      console.log("La palabra es: ", word);
       switch (word) {
         case "a":
           word = "ai";
@@ -48,7 +47,6 @@ const decodificar = (text) => {
   
   // Decodificacion
   words.forEach(element => {
-    console.log("Elemetnos: ",element)
     if (newDecod.includes(element)){
       newDecod = newDecod.replace(new RegExp(element, "g"),replaceWords[words.indexOf(element)]);
     }
@@ -57,7 +55,8 @@ const decodificar = (text) => {
 };
 
 const verificar = (textCap) => {
-  let regex = /^[a-z\s]+$/;//Expresion regular para abecedario en minuscula y espaciados 
+  let regex = /^[a-z\s!@#$%^&*()-_=+[\]{};:'",.<>/?\\|]+$/
+  ;//Expresion regular para abecedario en minuscula y espaciados 
   
   if( textCap.trim() === "" || regex.test(textCap) === false){
     p.innerHTML = "<i class='bi bi-exclamation-triangle-fill'></i> El campo esta vacio o contiene mayuscula y tildes ";
@@ -90,23 +89,21 @@ const reset = ()=> {
 /*******************EVENTOS DE BOTONES**********************/
 buttonCod.addEventListener("click", function (event) {
   //event.preventDefault(); //Prevenir que me lleve a otra pagina
+  encrDesn  = true;
   //Codificacion
   if(verificar(inputText.value) === true){
-    encrDesn  = true;
     outputText.value = codificar(inputText.value);
     buttonCod.href = "#sectionSalida";
     reset();
   }else {
     buttonCod.href = "#";
   }
-  console.log("Escuchaste");
 });
 
 buttonDecod.addEventListener("click", function (event) {
-  //event.preventDefault();
   //Decodificacion
+  encrDesn = false;
   if(verificar(inputText.value)){
-    encrDesn  = false;
     outputText.value = decodificar(inputText.value);
     buttonDecod.href = "#sectionSalida";
     reset();
