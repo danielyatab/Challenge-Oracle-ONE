@@ -55,10 +55,9 @@ const decodificar = (text) => {
 };
 
 const verificar = (textCap) => {
-  let regex = /^[a-z\s!@#$%^&*()-_=+[\]{};:'",.<>/?\\|]+$/
-  ;//Expresion regular para abecedario en minuscula y espaciados 
-  
-  if( textCap.trim() === "" || regex.test(textCap) === false){
+  let regex = /[A-ZÁÉÍÓÚáéíóú]/;//Expresion regular para Abacedario Mayuscula y tildes 
+
+  if(textCap.trim() === "" || regex.test(textCap) === true){
     p.innerHTML = "<i class='bi bi-exclamation-triangle-fill'></i> El campo esta vacio o contiene mayuscula y tildes ";
     p.style.color = "red";
     return false;
