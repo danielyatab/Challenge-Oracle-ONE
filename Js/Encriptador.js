@@ -89,7 +89,8 @@ const reset = ()=> {
 /*******************EVENTOS DE BOTONES**********************/
 buttonCod.addEventListener("click", function (event) {
   //event.preventDefault(); //Prevenir que me lleve a otra pagina
-  encrDesn  = true;
+
+  encrDesn  = true;//cambio de mensaje
   //Codificacion
   if(verificar(inputText.value) === true){
     outputText.value = codificar(inputText.value);
@@ -102,7 +103,8 @@ buttonCod.addEventListener("click", function (event) {
 
 buttonDecod.addEventListener("click", function (event) {
   //Decodificacion
-  encrDesn = false;
+
+  encrDesn = false;//cambio de mensaje
   if(verificar(inputText.value)){
     outputText.value = decodificar(inputText.value);
     buttonDecod.href = "#sectionSalida";
