@@ -1,104 +1,112 @@
-// alert("hOLI");
-var buttonCod = document.getElementById("btnEncriptar");
-var buttonDecod = document.getElementById("btnDesencriptar");
-var buttonCopy = document.getElementById("btnCopy");
+//Variables de DOM
+let buttonCod = document.getElementById("btnEncriptar");
+let buttonDecod = document.getElementById("btnDesencriptar");
+let buttonCopy = document.getElementById("btnCopy");
 
-var imageSobrePos = document.getElementById("outputContent");
+let imageSobrePos = document.getElementById("outputContent");
 
-var inputText = document.getElementById("textInput");
-var outputText = document.getElementById("textOutput");
-var p = document.getElementById("smsAlert");
-var icon = document.getElementById("iconAlert");
+let inputText = document.getElementById("textInput");
+let outputText = document.getElementById("textOutput");
+let p = document.getElementById("smsAlert");
+let icon = document.getElementById("iconAlert");
 
+let encrDesn = true;
 
 
 const codificar = (text) => {
   const textCod = text.toLowerCase().split("").map((word) => {
-    console.log("La palabra es: ",word);
-    switch (word) {
-      case 'a':
-        word = 'ai';
-        break;
-      case "e":
-        word = 'enter';
-        break;
-      case "i":
-        word = 'imes';
-        break;
-      case "o":
-        word = 'ober';
-        break;
-      case "u":
-        word = 'ufat';
-        break;
-      default:
-        word = word; 
-        break;
-    }
-    return word;
-  });
+      console.log("La palabra es: ", word);
+      switch (word) {
+        case "a":
+          word = "ai";
+          break;
+        case "e":
+          word = "enter";
+          break;
+        case "i":
+          word = "imes";
+          break;
+        case "o":
+          word = "ober";
+          break;
+        case "u":
+          word = "ufat";
+          break;
+        default:
+          word = word;
+          break;
+      }
+      return word;
+    });
   return textCod.join("");
 };
 
 const decodificar = (text) => {
-  let newText = "", temporal="";
-  let n=0;
-
-  let arrayText = text.toLowerCase().trim("")
-
-
+  let newDecod =text;
+  let words = ["ai", "enter","imes","ober","ufat"];
+  let replaceWords = ["a","e","i","o","u"];
+  
+  // Decodificacion
+  words.forEach(element => {
+    console.log("Elemetnos: ",element)
+    if (newDecod.includes(element)){
+      newDecod = newDecod.replace(new RegExp(element, "g"),replaceWords[words.indexOf(element)]);
+    }
+  });
+  return newDecod;
 };
 
 const verificar = (textCap) => {
-  if (textCap.trim() !== "") {
-    console.log("Entre al contendio verg")
+  let regex = /^[a-z\s]+$/;//Expresion regular para abecedario en minuscula y espaciados 
+  
+  if( textCap.trim() === "" || regex.test(textCap) === false){
+    p.innerHTML = "<i class='bi bi-exclamation-triangle-fill'></i> El campo esta vacio o contiene mayuscula y tildes ";
+    p.style.color = "red";
+    return false;
+  }else {
     //Context Desparece
     imageSobrePos.classList.add("outputOpacity");
 
     buttonCopy.classList.remove("copiar");
     buttonCopy.classList.add("revelationOpacity");
-
-    //CONTROLAR ICONO
-    /* if (icon.classList.contains("bi-exclamation-circle-fill")) {
-      icon.classList.remove("bi-exclamation-circle-fill");
-      icon.classList.remove("icon-alert");
-      icon.classList.add("bi-check-circle-fill");
-    } else if (icon.classList.contains("bi-exclamation-triangle-fill")) {
-      icon.classList.remove("bi-exclamation-triangle-fill");
-      icon.classList.add("bi-check-circle-fill");
-    } */
-    p.innerHTML = "<i class='bi bi-check-circle-fill'></i> Encriptado con exito ";
-
+    //Validacion de Mensaje exitoso Encriptacion or Desencriptacion
+    if(encrDesn){
+      p.innerHTML ="<i class='bi bi-check-circle-fill'></i> Encriptacion con exito ";
+    }else {
+      p.innerHTML ="<i class='bi bi-check-circle-fill'></i> Desencriptacion con exito ";
+    }
     // Sms Alert
-    // p.textContent = "Encriptado con exito";
     p.style.color = "rgb(114, 214, 110)";
-    //Icon Alert
-    outputText.value = codificar(inputText.value);
-  } else {
-    // if (icon.classList.contains("bi-check-circle-fill")) {
-    //   icon.classList.remove("bi-check-circle-fill");
-    //   icon.classList.add("bi-exclamation-triangle-fill");
-    // } else if (icon.classList.contains("bi-exclamation-circle-fill")) {
-    //   icon.classList.remove("bi-exclamation-circle-fill");
-    //   icon.classList.remove("icon-alert");
-    //   icon.classList.add("bi-exclamation-triangle-fill");
-    // }
-    // p.textContent = "No deje vacio el campo por favor";
-
-    p.innerHTML =
-      "<i class='bi bi-exclamation-triangle-fill'></i> No deje vacio el campo por favor ";
-    p.style.color = "red";
-    console.log("El contenido esta vacio");
+    return true;
   }
 };
 
+const reset = ()=> {
+  inputText.value ="";
+  inputText.focus();
+  inputText.placeholder = "";
+}
 
-
-// EVENTOS DE BOTONES
+/*******************EVENTOS DE BOTONES**********************/
 buttonCod.addEventListener("click", function (event) {
   event.preventDefault(); //Prevenir que me lleve a otra pagina
-  verificar(inputText.value);
-  console.log("Escuchaste")
+  //Codificacion
+  if(verificar(inputText.value) === true){
+    encrDesn  = true;
+    outputText.value = codificar(inputText.value);
+    reset();
+  }
+  console.log("Escuchaste");
+});
+
+buttonDecod.addEventListener("click", function (event) {
+  event.preventDefault();
+  //Decodificacion
+  if(verificar(inputText.value)){
+    encrDesn  = false;
+    outputText.value = decodificar(inputText.value);
+    reset();
+  }
 });
 
 buttonCopy.addEventListener("click", function (event) {
@@ -108,18 +116,18 @@ buttonCopy.addEventListener("click", function (event) {
   window.getSelection().removeAllRanges(); //QUITAR EL COLOR DE SELECCION
 });
 
-buttonDecod.addEventListener("click", function (event) {
-  event.preventDefault();
-});
 
 
-// EVENTOS DE TXTAREA
-inputText.addEventListener("input", function() {
-  setTimeout(function() {
+/*******************EVENTOS DE TXTAREA**********************/
+inputText.addEventListener("input", function () {
+  setTimeout(function () {
     if (inputText.value.trim() === "") {
       // Restablecer mensaje de alerta
-      p.innerHTML = "<i class='bi bi-exclamation-circle-fill icon-alert'></i>Solo letras minusculas y sin acentos"
-      p.style.color ="gray";
+      p.innerHTML =
+        "<i class='bi bi-exclamation-circle-fill icon-alert'></i>Solo letras minusculas y sin acentos";
+      p.style.color = "gray";
     }
   }, 0);
 });
+
+

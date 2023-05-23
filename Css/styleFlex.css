@@ -188,6 +188,11 @@ p{
   color: rgb(10,56,113);
 }
 
+.desencriptar:hover {
+  color: white;
+  background-color: gray;
+}
+
 /* BUTTON SALIDA*/
 .copiar {
   width: 86%;
