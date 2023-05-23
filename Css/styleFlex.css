@@ -13,6 +13,7 @@
 
 html {
   font-family: var(--font-primary);
+  scroll-behavior: smooth;
 }
 
 /****************RESET*****************/
@@ -25,6 +26,7 @@ body {
 h3 {
   font-size: var(--h5-font-size);
 }
+
 p{
   font-size: var(--h6-font-size);
   overflow-wrap: anywhere;

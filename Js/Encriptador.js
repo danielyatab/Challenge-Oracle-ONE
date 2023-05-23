@@ -89,23 +89,29 @@ const reset = ()=> {
 
 /*******************EVENTOS DE BOTONES**********************/
 buttonCod.addEventListener("click", function (event) {
-  event.preventDefault(); //Prevenir que me lleve a otra pagina
+  //event.preventDefault(); //Prevenir que me lleve a otra pagina
   //Codificacion
   if(verificar(inputText.value) === true){
     encrDesn  = true;
     outputText.value = codificar(inputText.value);
+    buttonCod.href = "#sectionSalida";
     reset();
+  }else {
+    buttonCod.href = "#";
   }
   console.log("Escuchaste");
 });
 
 buttonDecod.addEventListener("click", function (event) {
-  event.preventDefault();
+  //event.preventDefault();
   //Decodificacion
   if(verificar(inputText.value)){
     encrDesn  = false;
     outputText.value = decodificar(inputText.value);
+    buttonDecod.href = "#sectionSalida";
     reset();
+  }else {
+    buttonDecod.href = "#";
   }
 });
 
